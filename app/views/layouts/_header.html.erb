@@ -1,0 +1,36 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="/">Powered By</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <% if @categories.present? %>
+            <% @categories.each do |category| %>
+              <li<%= ' class=active' if category.id == @category_id %>><a href="<%= lang_path(category) %>"><%= category.name %></a></li>
+            <% end %>
+          <% end %>
+        </ul>
+
+        <% if admin_signed_in? %>
+          <p class="navbar-form pull-right">
+          <%= link_to('Category', categories_path, :class => 'btn btn-primary') %>
+          <%= link_to('Site', sites_path, :class => 'btn btn-primary') %>
+          <%= link_to('Logout', destroy_admin_session_path, :method => :delete, :class => 'btn') %>
+          </p>
+        <% else %>
+          <%= form_for(:admin, :url => session_path(:admin), :html => {:class => 'navbar-form pull-right'}) do |f| %>
+            <%= f.text_field :email, class: 'span2', placeholder: 'Email' %>
+            <%= f.password_field :password, class: 'span2', placeholder: 'Password' %>
+            <%= f.submit 'Sign in', class: 'btn' %>
+          <% end %>
+        <% end %>
+
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>

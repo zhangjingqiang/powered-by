@@ -1,0 +1,12 @@
+<% if @sites.present? %>
+  <div class="row">
+    <% @sites.each_with_index do |site, index| %>
+      <div class="span4">
+        <h2><%= site.try(:name) %></h2>
+        <p><%= image_tag(site.try(:image), :size => '100x100') %></p>
+        <p><a class="btn btn-primary" href="<%= site.try(:link) %>">Powered by <%= site.try(:name) %></a></p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<%= paginate @sites %>
